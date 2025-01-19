@@ -16,7 +16,7 @@ Regarding the LLM, Open AI's uses [tiktoken](https://github.com/openai/tiktoken)
 
 2. What implications does this paper have for the development of safety guardrails for LLMs in countries with low-resource languages?
 
-The paper showed that the general guardrail models perform poorly on low-resource language, in particular Singlish, an English creole. The paper also emphasized the importance of considering local context for content moderation. For instance, the category 'public harm' is usually missing in western-dominated category of unsafe content. 
+The paper showed that the general guardrail models perform poorly on low-resource language, in particular Singlish, an English creole. The paper also emphasized the importance of considering local context for content moderation. For instance, the category 'public harm' is usually missing in western-dominated category of unsafe content but added by the authors as a sperate category. That is probably due to local's regulations and culture.
 
 The paper also hilighted that with local context and the right knowledge from the smart people, it is possible to develop a siginificantly better guardrail for a low-resource language without requiring a lot of data labelling and computational resources. 
 
@@ -30,11 +30,13 @@ F1-score would be preferable if whenever there is not a need to consider the mod
 
 4. What are some weaknesses in LionGuard’s methodology? 
 
+Note: These arguments are made with regard to LionGuard the paper. As a tool for content moderation in Singlish it is a really promising product with the modely openly available on Hugging face. 
+
 Please excuse me as I will go into a conference's reviewer mode. 
 
 I have worked with subjective judements as well and it is very difficult to correctly reach a consistency even among human regarding whether a text should be considered safe or unsafe. First of all the initial 200 samples of expert labelled dataset. It is probably quite a small dataset with 7 categories. In addition, the term expert labelled dataset should be quantified as there might be people who do the content moderation as their profession and considered experts in content moderation. The crowdsourcing experitment also revealed that the it is very hard to reach consensus by (non-expert)humans on the most important category "unsafe" with only 52.9% aggrement.
 
 It would also be interesting to see the societal and legal context for adding the category "public harm" as well as how the definitions of safe and unsafe context differs. In a related note, it would be interesting to see if the crowd sourced users were to do a small calibration quiz before labelling, would it lead to more consensus between them and the LLM prompt generated labels.
 
-And one other limitation of the applicability of the paper against low-resources languages is that the heavy lifting of the LionGuard model seems to be coming from the embedding model as all the classifiers produces similar results. The embedding models will not work just as well for actual non English based low resource languages.  
+And one other limitation of the applicability of the paper against low-resources languages is that the heavy lifting of the LionGuard model seems to be coming from the embedding model as all the classifiers produces similar results given the same embedding model. The embedding models will not work just as well for actual non English based low-resource languages. Though the technique is applicable for local contextualized content moderation, it wont necessarily apply to low-resource language approaches where the language is not a creole language of a high-resource language.  
 
