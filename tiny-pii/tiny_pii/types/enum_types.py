@@ -9,6 +9,11 @@ class TinyPIICategories(str, Enum):
     PHONE = "phone"
     NRIC = "nric"
     ADDRESS = "address"
+    # The followings are internal categories
+    _LOCATION = "location"  # detected location from NER model
+    _POSTCODE = "postcode"
+    _BUILDING = "building"
+    _UNIT = "unit"
 
 
 class TinyPIIDetectors(str, Enum):

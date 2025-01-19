@@ -34,7 +34,7 @@ class HuggingFaceBertDetector:
         # Map NER labels to PII categories
         self.label_to_category = {
             "PER": TinyPIICategories.NAME,
-            "LOC": TinyPIICategories.ADDRESS,
+            "LOC": TinyPIICategories._LOCATION,
             "ORG": None,  # We don't use organization detections
         }
 
