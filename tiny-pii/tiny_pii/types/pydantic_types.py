@@ -16,6 +16,10 @@ class TinyPIIDetection(BaseModel):
         from_attributes = True
 
 
+class AggregatedDetection(TinyPIIDetection):
+    detector: str  # a str since all labels will be combined
+
+
 class TinyPIIOutput(BaseModel):
     """Model representing the complete output of PII detection."""
 
