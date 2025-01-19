@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class TinyPIICategories(str, Enum):
+class TinyPIICategories(StrEnum):
     """Enumeration of possible PII categories that can be detected."""
 
     NAME = "name"
@@ -15,7 +15,7 @@ class TinyPIICategories(str, Enum):
     _ADDRESS_COMPONENT = "_address component"  # building
 
 
-class TinyPIIDetectors(str, Enum):
+class TinyPIIDetectors(StrEnum):
     """Enumeration of available PII detectors."""
 
     HUGGINGFACE_BERT = "HuggingFaceBertDetector"

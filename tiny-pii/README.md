@@ -39,7 +39,7 @@ The input to the API/method will be just text. The output will be an instance of
 * redacted_text - Text with PII masked. 
 
 The class `TinyPIIDetection` has the following fields
-* detected class - Enum of 'TinyPIICategories' (name, email, phone, nric, address)
+* detected class - Enum of 'TinyPIICategories' (name, email, phone, nric, address, location, )
 * text - string
 * confidence - float 0.0 to 1.0 
 * position - (int,int)
@@ -50,3 +50,7 @@ After that the flow of the logic of the detection
 * Run RegexDetector (input text, output TinyPIIDetection)
 * Produce the TinyPIIOutput by aggregating these results 
 * Convert these results to the requested CSV file output. 
+
+
+# Running the script 
+`poetry run python tiny_pii/scripts/process_csv1.py data/pii_data.csv --output_file data/pii_data_redacted.csv`

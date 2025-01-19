@@ -1,4 +1,4 @@
-from .enum_types import TinyPIICategories, TinyPIIDetectors
+from .categories import TinyPIICategories, TinyPIIDetectors
 from .pydantic_types import TinyPIIDetection, TinyPIIOutput, AggregatedDetection
 
 __all__ = [

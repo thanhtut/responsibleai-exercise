@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from .enum_types import TinyPIICategories, TinyPIIDetectors
+from tiny_pii.types import TinyPIICategories, TinyPIIDetectors
 from typing import List, Tuple, Literal
 
 
