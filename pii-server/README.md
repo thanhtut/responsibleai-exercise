@@ -4,7 +4,7 @@ How to run the server
 * Install Poetry
 * cd `cd pii-server/`
 * Install dependicines with "poetry install"
-* Run the server `uvicorn main:app --host 0.0.0.0 --port 8000`
+* Run the server `poetry run uvicorn main:app --host 0.0.0.0 --port 8000`
 
 
 How to use the API
@@ -17,4 +17,10 @@ curl -X POST \
 Response
 ```
 {"redacted_text":"Hello, my name is [NAME], email is [EMAIL]!","status":"success"}
+```
+
+To get the history records in JSON
+```
+curl -X GET http://localhost:8000/history
+curl -X GET http://localhost:8000/history?skip=100&limit=50 
 ```
