@@ -7,6 +7,18 @@ How to run the server
 * Run the server `poetry run uvicorn main:app --host 0.0.0.0 --port 8000`
 
 
+Running with docker 
+
+cd into the folder where docker-compose.yml file is
+```
+docker-compose up --build
+```
+
+```
+docker-compose down
+```
+
+
 How to use the API
 ```
 curl -X POST \
@@ -24,3 +36,4 @@ To get the history records in JSON
 curl -X GET http://localhost:8000/history
 curl -X GET http://localhost:8000/history?skip=100&limit=50 
 ```
+

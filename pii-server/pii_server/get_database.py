@@ -2,13 +2,14 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, JSON, f
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from tiny_pii.types import TinyPIIOutput, TinyPIIDetection
+import os
 
 Base = declarative_base()
 
 
 # Database connection URL format:
-# postgresql://username:password@host:port/database_name
-DATABASE_URL = "postgresql://piiserver:TowardsFairAI@localhost:5432/piidatabase"
+# These values should not be in the open should be in a key valut or github envs
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://piiuser:TowardsFairAI@db:5432/piidatabase")
 
 # Create the SQLAlchemy engine
 engine = create_engine(DATABASE_URL)

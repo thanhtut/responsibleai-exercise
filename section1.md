@@ -11,7 +11,10 @@ Tokenization is the process of breaking down text into smaller units known as to
 
 Lets imagine you are trying to work in a high-resource language, English. We will use a popular NLP library called Spacy. Here we can see that there tokenizer for English is 100% accurate by [this documentation](https://spacy.io/models/en#en_core_web_sm-accuracy). However, if you want to work with a (medium) low-resource language like Thai, you will have to use [a plugin](https://spacy.io/universe/project/spacy-pythainlp) with potentially outdated wrapping methods. For even (very low) low-resource languages like Burmese or Cambodian, they are not even mentioned on the radar of the industry's popular NLP toolkits. 
 
-Regarding the LLM, Open AI's uses [tiktoken](https://github.com/openai/tiktoken) which uses Byte-Pair Encoding (BPE). It allows efficient way to compress text and a token usually is equipvalent to 4 characers in English. However we can see that to Burmese languages using 3x more tokens than English for the same characters. This token system is not as efficient with non English and especially non latin low-resource languages.
+Regarding the LLM, Open AI's uses [tiktoken](https://github.com/openai/tiktoken) which uses Byte-Pair Encoding (BPE). It allows efficient way to compress text and a token usually is equivalent to 4 characers in English. However we can see that to Burmese languages using 3x more tokens than English for the same characters. This token system is not as efficient with non English and especially non latin low-resource languages. 
+![TikToken English](doc_images/tokens_english.png)
+![TikToken BUrmese](doc_images/tokens_mm.png)
+
 
 
 2. What implications does this paper have for the development of safety guardrails for LLMs in countries with low-resource languages?

@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from tiny_pii.types import TinyPIICategories, TinyPIIDetectors
-from typing import List, Tuple, Literal
+from typing import List, Tuple, Literal, Union
 
 
 class TinyPIIDetection(BaseModel):
@@ -10,7 +10,7 @@ class TinyPIIDetection(BaseModel):
     text: str
     confidence: float = Field(ge=0.0, le=1.0)  # Ensures confidence is between 0 and 1
     position: Tuple[int, int]
-    detector: TinyPIIDetectors
+    detector: Union[TinyPIIDetectors | str]
 
     class Config:
         from_attributes = True

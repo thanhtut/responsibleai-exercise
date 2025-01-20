@@ -2,9 +2,7 @@
 name = "pii-server"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Than Htut Soe",email = "than@consigli.no"}
-]
+authors = [{ name = "Than Htut Soe", email = "than@consigli.no" }]
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
@@ -13,13 +11,21 @@ dependencies = [
     "uvicorn (>=0.34.0,<0.35.0)",
     "tiny-pii @ file:///home/than/localdevcode/responsibleai-exercise/tiny-pii",
     "sqlalchemy (>=2.0.37,<3.0.0)",
-    "psycopg2-binary (>=2.9.10,<3.0.0)"
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
 ]
+
+
+[[tool.poetry.source]]
+name = "torchcpu"
+url = "https://download.pytorch.org/whl/cpu"
+priority = "supplemental"
+
+
+[tool.poetry.dependencies]
+torch = { source = "torchcpu" }
+tiny-pii = { develop = true }
 
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.poetry.dependencies]
-tiny-pii = {develop = true}
