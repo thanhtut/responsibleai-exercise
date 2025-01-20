@@ -54,3 +54,9 @@ After that the flow of the logic of the detection
 
 # Running the script 
 `poetry run python tiny_pii/scripts/process_csv1.py data/pii_data.csv --output_file data/pii_data_redacted.csv`
+
+
+# Evaluation 
+Since, this PII can be treated as a named entity recognition (NER) detection challenge for each category, it is appropirate to use F1-score for the evaluation. Also including precision and recall next to F1-score will add useful metrics to evaluate the performance and do necessary adjustments. 
+
+There are other evaluation methods proposed which addresses downsides with using F1, precision and recall. For instance, [Interpretable Multi-dataset Evaluation for Named Entity Recognition](https://arxiv.org/abs/2011.06854). However, I would still stick to F1-score, precision and recall since they are widely adopted in the industry and easier to compute in existing workflows. 

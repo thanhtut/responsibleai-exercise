@@ -40,3 +40,5 @@ It would also be interesting to see the societal and legal context for adding th
 
 And one other limitation of the applicability of the paper against low-resources languages is that the heavy lifting of the LionGuard model seems to be coming from the embedding model as all the classifiers produces similar results given the same embedding model. The embedding models will not work just as well for actual non English based low-resource languages. Though the technique is applicable for local contextualized content moderation, it wont necessarily apply to low-resource language approaches where the language is not a creole language of a high-resource language.  
 
+## References 
+https://arxiv.org/html/2410.20817v1#S7
