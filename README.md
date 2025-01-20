@@ -9,5 +9,5 @@ Here are the answers
 * [section2](section2.md)
 
 ## Gradio FrontEnd
-[Gradio list](doc_images/front_end_analyze.png)
-[Gradio history](doc_images/history.png)
+![Gradio list](doc_images/front_end_analyze.png)
+![Gradio history](doc_images/history.png)

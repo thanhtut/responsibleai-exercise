@@ -9,6 +9,7 @@ Currently it detects and removes the following.
 * NRICs
 * addresses 
 
+Note: uses torch cpu version to make installation easier.
 
 ## Thoughts process
 
