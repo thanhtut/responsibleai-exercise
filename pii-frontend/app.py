@@ -32,7 +32,6 @@ def view_recent_analyses():
         response = requests.get(f"{API_URL}/history?limit=10")
         analyses = response.json()
 
-        # Create a list to store formatted data
         formatted_data = []
 
         for analysis in analyses:
@@ -57,7 +56,6 @@ def view_recent_analyses():
             if analysis["address"]:
                 pii_flags.append("Address")
 
-            # Format datetime
             created_at = datetime.fromisoformat(analysis["created_at"]).strftime(
                 "%Y-%m-%d %H:%M:%S"
             )
@@ -81,7 +79,6 @@ def view_recent_analyses():
         return pd.DataFrame({"Error": [str(e)]})
 
 
-# Create the Gradio interface
 with gr.Blocks(title="PII Removal and Detection Tool") as demo:
     gr.Markdown("# PII Detection Tool")
 
