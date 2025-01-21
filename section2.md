@@ -37,6 +37,8 @@ I will use [dslim/bert-base-NER](https://huggingface.co/dslim/bert-base-NER) mod
 * NRICs - Regex
 * addresses - LOC and regex for post codes.
 
+Do note that the Regex patterns for phone numbers and addresses components are created with only Singaporean local format in mind. 
+
 For the implementation steps, I will start by something I have found works great for data intensive applications that is defining the types first. I will use Pydantic for this as it is pretty much industry standard at this point.
 
 The input to the API/method will be just text. The output will be an instance of pydantic class called `TinyPIIOutput` that has the following fields 
