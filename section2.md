@@ -1,9 +1,11 @@
 # TinyPII GuardRail
 
 The code consists of three seperate and loosely coupled components. 
-* tiny-pii - the library that scrapes the personal identifiable information. It uses `dslim/bert-base-NER` model from hugging face to perform name and detection. It also contains a pipeline model where other NER models can easily be plugged in into the workflow. It also has the script for running on the CSV file.
+* tiny-pii - the library that scrapes the personal identifiable information. It uses `dslim/bert-base-NER` model from hugging face to perform name and detection. It also contains a pipeline model where other NER models can easily be plugged in into the workflow. It also has the script for running on the CSV file. And it has tests!
 * pii-server - FastAPI wrapper on on the tiny-pii that exposes two endpoints `/process` and `/history`. Also stores the results in the database.
 * pii-frontend - Gradio frontend that only uses pii-server to use PII serice and also view the history. I intentionally avoided this from using the database directly for the sake of cleaner architecture.
+
+I have dockerized all my components. However, if you want to run them manually [get poetry](https://python-poetry.org/docs/#installation). I have used it since I found it useful to manage python issues with dependency management.
 
 ## Tiny-PII 
 
@@ -11,7 +13,7 @@ A POC PII compoment that identifies and scraps out the personal identifiable inf
 
 Currently it detects and removes the following.
 * names
-* emails
+* emails    
 * phone numbers
 * NRICs
 * addresses 
@@ -26,7 +28,7 @@ But to make it more intersting, I tried to find a dataset and opensource model o
 
 I will use [dslim/bert-base-NER](https://huggingface.co/dslim/bert-base-NER) model to detect person names and location. The model card does not specify the evaluation results per category (Person and Location) but it is f1 91.3, precision 90.7 and recall 91.9 on the test set which is decent. 
 
-#@# Tiny-PII Implemtation
+### Tiny-PII Implemtation
 `dslim/bert-base-NER` will be used to detect person names and locations. Through testing I have noticed that it does not tag post codes as location. Therefore, postcodes will be detected as a part of addresses using regular expressions. Regular expressions are more appropirate than train models for detecting patterns that can be specificed using regular expression as they are 100% accurate if the pattern matches. In summary the detection method are as follows.
 
 * names - NER class: PER
@@ -73,9 +75,9 @@ Since, this PII can be treated as a named entity recognition (NER) detection cha
 There are other evaluation methods proposed which addresses downsides with using F1, precision and recall. For instance, [Interpretable Multi-dataset Evaluation for Named Entity Recognition](https://arxiv.org/abs/2011.06854). However, I would still stick to F1-score, precision and recall since they are widely adopted in the industry and easier to compute in existing workflows. 
 
 
-## Aws
+## AWS Deployment
 
-[Aws architecture](doc_images/aws_architecture.png)
+![AWS architecture](doc_images/aws_architecture.png)
 
 The front end and the API will run on their own containers. Only the API will have access to the database. I have also considered using S3 as a datalake when the historical data gets too large to save storage costs. I have not done a cost comparison yet for Azure. From my experience with Azure, specialized services such as ML inference are more expensive than containers. This explains the reasoning behind using containers other than AWS's SageMaker. Also containers gives us full control of the execution environment (at the expense of having to manage it)
 
@@ -83,7 +85,7 @@ For the deployment, I will utilize IaC for defining all required AWS resources i
 
 ## Improvements
 
-I have noticed that the name detection does not work well for Singaporean names and thus fragments of names such as 'Ah' are being not detected by the NER model properly as person's names. This again comes down to being low-resource language. 
+I have noticed that the name detection does not work well for Singaporean names and thus fragments of names such as 'Ah' are being not detected by the NER model properly as a part of a person's names. This again comes down to being low-resource language. 
 
 If I have more time, I would look into the building my own training data for the Singaporean context and then fine-tune existing BERT models based on the training data. It might be intresting to also compare the performances of BERT models with LLMs such as llama.
 
@@ -123,7 +125,107 @@ To get the history records in JSON
 curl -X GET http://localhost:8000/history
 curl -X GET http://localhost:8000/history?skip=100&limit=50 
 ```
-
+Response
+```
+[
+  {
+    "text": "Hello, my name is Than Htut Soe, email is thanhtutsoetgi@gmail.com!",
+    "name": 1,
+    "email": 1,
+    "phone": 0,
+    "nric": 0,
+    "address": 0,
+    "detections": [
+      {
+        "detected_class": "name",
+        "text": "Than Htut Soe",
+        "confidence": 0.8482694625854492,
+        "position": [
+          18,
+          31
+        ],
+        "detector": "HuggingFaceBertDetector"
+      },
+      {
+        "detected_class": "email",
+        "text": "thanhtutsoetgi@gmail.com",
+        "confidence": 1,
+        "position": [
+          42,
+          66
+        ],
+        "detector": "RegexDetector"
+      }
+    ],
+    "redacted_text": "Hello, my name is [NAME], email is [EMAIL]!",
+    "created_at": "2025-01-20T16:49:03.157547"
+  },
+  {
+    "text": "Hello, my name is Than Htut Soe, email is thanhtutsoetgi@gmail.com!",
+    "name": 1,
+    "email": 1,
+    "phone": 0,
+    "nric": 0,
+    "address": 0,
+    "detections": [
+      {
+        "detected_class": "name",
+        "text": "Than Htut Soe",
+        "confidence": 0.8482694625854492,
+        "position": [
+          18,
+          31
+        ],
+        "detector": "HuggingFaceBertDetector"
+      },
+      {
+        "detected_class": "email",
+        "text": "thanhtutsoetgi@gmail.com",
+        "confidence": 1,
+        "position": [
+          42,
+          66
+        ],
+        "detector": "RegexDetector"
+      }
+    ],
+    "redacted_text": "Hello, my name is [NAME], email is [EMAIL]!",
+    "created_at": "2025-01-20T16:49:00.207587"
+  },
+  {
+    "text": "Hello, my name is Than Htut Soe, email is thanhtutsoetgi@gmail.com!",
+    "name": 1,
+    "email": 1,
+    "phone": 0,
+    "nric": 0,
+    "address": 0,
+    "detections": [
+      {
+        "detected_class": "name",
+        "text": "Than Htut Soe",
+        "confidence": 0.8482694625854492,
+        "position": [
+          18,
+          31
+        ],
+        "detector": "HuggingFaceBertDetector"
+      },
+      {
+        "detected_class": "email",
+        "text": "thanhtutsoetgi@gmail.com",
+        "confidence": 1,
+        "position": [
+          42,
+          66
+        ],
+        "detector": "RegexDetector"
+      }
+    ],
+    "redacted_text": "Hello, my name is [NAME], email is [EMAIL]!",
+    "created_at": "2025-01-20T16:48:58.554829"
+  },
+]
+```
 The gradio URL is at:
 http://localhost:7860/
 
