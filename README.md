@@ -8,6 +8,7 @@ Here are the answers
 * [section1](section1.md)
 * [section2](section2.md)
 
+And here's your preview. 
 ## Gradio FrontEnd
 ![Gradio list](doc_images/front_end_analyze.png)
 ![Gradio history](doc_images/history.png)
